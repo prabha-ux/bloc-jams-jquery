@@ -1,5 +1,5 @@
 $('button#play-pause').on('click', function() {
-  player.playPause();
+  helper.playPauseAndUpdate();
   $(this).attr('playState', player.playState);
 });
 
@@ -12,7 +12,7 @@ $('button#next').on('click', function() {
    const duration = player.getDuration();
    const percent = (currentTime / duration) * 100;
    const nextSong = album.songs[nextSongIndex];
-   player.playPause(nextSong);
+   helper.playPauseAndUpdate(nextSong);
    });
 
    $('#time-control input').on('input', function (event) {
@@ -25,12 +25,10 @@ $('button#next').on('click', function() {
 
    setInterval( () => {
      if (player.playState !== 'playing') { return; }
-     //if (player.playState == 'playing')
-
      const currentTime = player.getTime();
      const duration = player.getDuration();
      const percent = (currentTime / duration) * 100;
-     $('#time-control .current-time').text( currentTime );
+     $('#time-control .current-time').text( player.prettyTime(currentTime) );
      $('#time-control input').val(percent);
    }, 1000);
 
@@ -39,5 +37,5 @@ $('button#previous').on('click', function() {
   const currentSongIndex = album.songs.indexOf(player.currentlyPlaying);
   const previousSongIndex = currentSongIndex - 1;
   const previousSong = album.songs[previousSongIndex];
-  player.playPause(previousSong);
+  helper.playPauseAndUpdate(previousSong);
 });
