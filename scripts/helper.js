@@ -6,7 +6,7 @@ class Helper {
     player.playPause(song);
     //sleep (1000);
     const duration = player.getDuration();
-    let prettyDuration = player.prettyTime(duration);
+    let prettyDuration = player.prettyTime(player.currentlyPlaying.duration);
     $('#time-control .total-time').text( prettyDuration );
   }
 }
